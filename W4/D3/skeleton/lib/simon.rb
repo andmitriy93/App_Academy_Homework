@@ -1,4 +1,3 @@
-require_relative "user"
 module Screen
   def self.clear_screen
     print "\e[H\e[2J"
