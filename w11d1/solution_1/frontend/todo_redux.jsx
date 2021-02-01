@@ -27,17 +27,17 @@ document.addEventListener('DOMContentLoaded', () => {
 //   }
 // }
 
-const addLoggingToDispatch = store => next => action => {
-  console.log(store.getState());
-  console.log(action);
-  next(action);
-  console.log(store.getState());
-}
+// const addLoggingToDispatch = store => next => action => {
+//   console.log(store.getState());
+//   console.log(action);
+//   next(action);
+//   console.log(store.getState());
+// }
 
-const applyMiddlewares = (store, ...middlewares) => {
-  let dispatch = store.dispatch;
-  middlewares.forEach((middleware) => {
-    dispatch = middleware(store)(dispatch);
-  });
-  return Object.assign({}, store, { dispatch })
-}
+// const applyMiddlewares = (store, ...middlewares) => {
+//   let dispatch = store.dispatch;
+//   middlewares.forEach((middleware) => {
+//     dispatch = middleware(store)(dispatch);
+//   });
+//   return Object.assign({}, store, { dispatch })
+// }

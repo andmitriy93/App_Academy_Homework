@@ -1185,11 +1185,22 @@ __webpack_require__.r(__webpack_exports__);
 
 var configureStore = function configureStore() {
   var preloadedState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  var store = Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(_reducers_root_reducer__WEBPACK_IMPORTED_MODULE_1__["default"], preloadedState);
+  var store = Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(_reducers_root_reducer__WEBPACK_IMPORTED_MODULE_1__["default"], preloadedState, Object(redux__WEBPACK_IMPORTED_MODULE_0__["applyMiddleware"])(addLoggingToDispatch));
   store.subscribe(function () {
     localStorage.state = JSON.stringify(store.getState());
   });
   return store;
+};
+
+var addLoggingToDispatch = function addLoggingToDispatch(store) {
+  return function (next) {
+    return function (action) {
+      console.log(store.getState());
+      console.log(action);
+      next(action);
+      console.log(store.getState());
+    };
+  };
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (configureStore);
@@ -1235,32 +1246,19 @@ document.addEventListener('DOMContentLoaded', function () {
 //     console.log(store.getState());
 //   }
 // }
-
-var addLoggingToDispatch = function addLoggingToDispatch(store) {
-  return function (next) {
-    return function (action) {
-      console.log(store.getState());
-      console.log(action);
-      next(action);
-      console.log(store.getState());
-    };
-  };
-};
-
-var applyMiddlewares = function applyMiddlewares(store) {
-  var dispatch = store.dispatch;
-
-  for (var _len = arguments.length, middlewares = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-    middlewares[_key - 1] = arguments[_key];
-  }
-
-  middlewares.forEach(function (middleware) {
-    dispatch = middleware(store)(dispatch);
-  });
-  return Object.assign({}, store, {
-    dispatch: dispatch
-  });
-};
+// const addLoggingToDispatch = store => next => action => {
+//   console.log(store.getState());
+//   console.log(action);
+//   next(action);
+//   console.log(store.getState());
+// }
+// const applyMiddlewares = (store, ...middlewares) => {
+//   let dispatch = store.dispatch;
+//   middlewares.forEach((middleware) => {
+//     dispatch = middleware(store)(dispatch);
+//   });
+//   return Object.assign({}, store, { dispatch })
+// }
 
 /***/ }),
 
